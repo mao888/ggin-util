@@ -2,11 +2,13 @@ package gginutil
 
 import (
 	"context"
-	"github.com/gin-gonic/gin"
+	"net/http"
+
 	"gitlab.ftsview.com/fotoable-go/glog"
 	"gitlab.ftsview.com/fotoable-go/gsecret"
 	"gitlab.ftsview.com/fotoable-go/gutil"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type AesKey string
@@ -15,9 +17,9 @@ const (
 	aesContextKey AesKey = "aes_key"
 )
 
-func Sign2C(encryption bool) gin.HandlerFunc {
+func SignToC(encryption bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		header := &Header2C{}
+		header := &HeaderToC{}
 		if err := c.ShouldBindHeader(header); err != nil {
 			c.Header(HeaderError, err.Error())
 			c.AbortWithStatus(http.StatusUnauthorized)

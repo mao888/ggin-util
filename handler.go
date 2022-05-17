@@ -22,7 +22,7 @@ type Response struct {
 	Data interface{} `json:"data"`
 }
 
-type Header2C struct {
+type HeaderToC struct {
 	AppID      string `header:"Fotoable-App-ID"`
 	AppVersion string `header:"Fotoable-App-Version"`
 	SdkID      string `header:"Fotoable-Sdk-ID"`
@@ -30,6 +30,13 @@ type Header2C struct {
 	Sign       string `header:"sign"`
 	TimeStamp  string `header:"timestamp"`
 	Random     string `header:"random"`
+}
+
+type HeaderToB struct {
+	Cookie        string `header:"Cookie"`
+	UserID        string `header:"USER-ID"`
+	XToken        string `header:"X-Token"`
+	Authorization string `header:"Authorization"`
 }
 
 func (h *BaseHandler) Bind(c *gin.Context, vo interface{}, bindHeader bool) bool {
