@@ -32,7 +32,7 @@ type Header2C struct {
 	Random     string `header:"random"`
 }
 
-func (h *BaseHandler) bind(c *gin.Context, vo interface{}, bindHeader bool) bool {
+func (h *BaseHandler) Bind(c *gin.Context, vo interface{}, bindHeader bool) bool {
 	if bindHeader {
 		if err := c.ShouldBindHeader(vo); err != nil {
 			glog.Errorf(c.Request.Context(), "bind header error: %s", err.Error())
@@ -51,11 +51,11 @@ func (h *BaseHandler) bind(c *gin.Context, vo interface{}, bindHeader bool) bool
 	return true
 }
 
-func (h *BaseHandler) success(c *gin.Context, data interface{}) {
+func (h *BaseHandler) Success(c *gin.Context, data interface{}) {
 	c.JSON(http.StatusOK, Response{Data: data})
 }
 
-func (h *BaseHandler) fail(c *gin.Context, code int, msg string) {
+func (h *BaseHandler) Fail(c *gin.Context, code int, msg string) {
 	if code == 0 {
 		code = -1
 	}
