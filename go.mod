@@ -1,4 +1,4 @@
-module gitlab.ftsview.com/aircraft/gginutil
+module gitlab.ftsview.com/fotoable-go/ggin-util
 
 go 1.16
 
