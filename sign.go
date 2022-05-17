@@ -47,7 +47,6 @@ func Sign2C(encryption bool) gin.HandlerFunc {
 		}
 		if encryption {
 			aesKey := gutil.PramSign([]string{server, header.AppID, header.SdkID})
-			glog.Debugf(c.Request.Context(), "aes_key: %s", aesKey)
 			c.Request = c.Request.WithContext(context.WithValue(
 				c.Request.Context(), aesContextKey, aesKey))
 		}
