@@ -16,6 +16,13 @@ const (
 type BaseHandler struct {
 }
 
+type EncryptionResponse struct {
+	Code       int         `json:"code"`
+	Msg        string      `json:"message"`
+	Encryption bool        `json:"encryption"`
+	Data       interface{} `json:"data"`
+}
+
 type Response struct {
 	Code int         `json:"code"`
 	Msg  string      `json:"message"`
@@ -71,4 +78,8 @@ func (h *BaseHandler) Fail(c *gin.Context, code int, msg string) {
 	}
 	c.Header(HeaderError, msg)
 	c.JSON(http.StatusOK, Response{Code: code, Msg: msg})
+}
+
+func (h *BaseHandler) SuccessEncryption(c *gin.Context, data interface{}, encryption bool) {
+	c.JSON(http.StatusOK, EncryptionResponse{Data: data, Encryption: encryption})
 }
