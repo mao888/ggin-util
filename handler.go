@@ -41,7 +41,7 @@ type HeaderToC struct {
 
 type HeaderToB struct {
 	Cookie        string `header:"Cookie"`
-	UserID        string `header:"USER-ID"`
+	UserID        int    `header:"USER-ID"`
 	XToken        string `header:"X-Token"`
 	Authorization string `header:"Authorization"`
 }
