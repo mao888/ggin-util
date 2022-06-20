@@ -80,6 +80,17 @@ func (h *BaseHandler) Fail(c *gin.Context, code int, msg string) {
 	c.JSON(http.StatusOK, Response{Code: code, Msg: msg})
 }
 
+func (h *BaseHandler) FailWithData(c *gin.Context, code int, msg string, data interface{}) {
+	if code == 0 {
+		code = -1
+	}
+	if msg == "" {
+		msg = "internal server error"
+	}
+	c.Header(HeaderError, msg)
+	c.JSON(http.StatusOK, Response{Code: code, Msg: msg, Data: data})
+}
+
 func (h *BaseHandler) SuccessEncryption(c *gin.Context, data interface{}, encryption bool) {
 	c.JSON(http.StatusOK, EncryptionResponse{Data: data, Encryption: encryption})
 }
