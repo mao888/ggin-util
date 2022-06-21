@@ -55,7 +55,9 @@ func (h *BaseHandler) Bind(c *gin.Context, vo interface{}, bindHeader bool) bool
 			return false
 		}
 	}
-
+	if c.Request.ContentLength == 0 {
+		return true
+	}
 	if err := c.ShouldBind(vo); err != nil {
 		glog.Errorf(c.Request.Context(), "bind body error: %s", err.Error())
 		c.Status(http.StatusBadRequest)
