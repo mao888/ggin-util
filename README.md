@@ -1,6 +1,7 @@
 # ggin-util
 
 #### 基于gin包装的工具包
+> 注意：改包需要依赖gsecret
 * 使用
 ```go
     router := gin.New()

@@ -16,17 +16,21 @@ const (
 type BaseHandler struct {
 }
 
-type EncryptionResponse struct {
-	Code       int         `json:"code"`
-	Msg        string      `json:"message"`
-	Encryption bool        `json:"encryption"`
-	Data       interface{} `json:"data"`
+type EncryptionRequest struct {
+	Data string `json:"data"`
 }
 
 type Response struct {
 	Code int         `json:"code"`
 	Msg  string      `json:"message"`
 	Data interface{} `json:"data"`
+}
+
+type EncryptionResponse struct {
+	Code       int         `json:"code"`
+	Msg        string      `json:"message"`
+	Encryption bool        `json:"encryption"`
+	Data       interface{} `json:"data"`
 }
 
 type HeaderToC struct {
