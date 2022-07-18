@@ -49,6 +49,7 @@ func (r responseBodyWriter) Write(b []byte) (int, error) {
 	return r.ResponseWriter.Write(gutil.Object2JSONByte(resp))
 }
 
+//SignToC 验证ToC服务的签名及生成AES秘钥
 func SignToC(encryption bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		header := &HeaderToC{}
@@ -87,6 +88,7 @@ func SignToC(encryption bool) gin.HandlerFunc {
 	}
 }
 
+//Encryption 对应用的Handler进行数据的加解密
 func Encryption(h gin.HandlerFunc, t EncryptionType) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx := c.Request.Context()
@@ -125,6 +127,7 @@ func Encryption(h gin.HandlerFunc, t EncryptionType) gin.HandlerFunc {
 	}
 }
 
+//GetAESKey 获取AES的秘钥，因为TOC服务所有秘钥生产规则一致
 func GetAESKey(ctx context.Context) string {
 	aesKey, ok := ctx.Value(aesContextKey).(string)
 	if ok {
