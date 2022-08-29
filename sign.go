@@ -21,6 +21,10 @@ type (
 
 const (
 	aesContextKey AesKey = "aes_key"
+
+	HeaderXRequestID = "X-Request-ID"
+	HeaderUserID     = "X-USER-ID"
+	HeaderUserName   = "X-USER-Name"
 )
 
 const (
@@ -134,4 +138,26 @@ func GetAESKey(ctx context.Context) string {
 		return aesKey
 	}
 	return EmptyString
+}
+
+//SignToB 验证ToB服务的签名及生成追踪ID和设置请求头信息
+func SignToB() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userID := c.Request.Header.Get(HeaderUserID)
+		userName := c.Request.Header.Get(HeaderUserName)
+		if userID == "" {
+			c.Header(HeaderError, "userID is nil")
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+		trackID := c.GetHeader(HeaderXRequestID)
+		if len(trackID) == 0 {
+			trackID = gutil.UUID()
+		}
+		//设置请求头参数
+		ctx := context.WithValue(c.Request.Context(), glog.TrackKey, trackID)
+		ctx = context.WithValue(ctx, gutil.HeaderUserID, userID)
+		ctx = context.WithValue(ctx, gutil.HeaderUserName, userName)
+		c.Request = c.Request.WithContext(ctx)
+	}
 }

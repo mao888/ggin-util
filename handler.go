@@ -44,10 +44,9 @@ type HeaderToC struct {
 }
 
 type HeaderToB struct {
-	Cookie        string `header:"Cookie"`
-	UserID        int    `header:"USER-ID"`
-	XToken        string `header:"X-Token"`
-	Authorization string `header:"Authorization"`
+	UserID   int    `header:"USER-ID"`
+	UserName string `header:"USER-Name"`
+	Token    string `header:"Token"`
 }
 
 func (h *BaseHandler) Bind(c *gin.Context, vo interface{}, bindHeader bool) bool {

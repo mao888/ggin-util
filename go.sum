@@ -117,6 +117,8 @@ gitlab.ftsview.com/fotoable-go/gsecret v0.0.0-20220516022338-fd033917649e h1:gEQ
 gitlab.ftsview.com/fotoable-go/gsecret v0.0.0-20220516022338-fd033917649e/go.mod h1:kgIa5qU6Q+8N+wGD3fXLV7j7aOBxJricLHTFZXyFSGU=
 gitlab.ftsview.com/fotoable-go/gutil v0.0.0-20220507025728-daee2d758c95 h1:IA+YXMql3UvkCWjTf2PlzDaYzQ83Nx6crPisbw5owGU=
 gitlab.ftsview.com/fotoable-go/gutil v0.0.0-20220507025728-daee2d758c95/go.mod h1:H2sGQZep0a4G8fm7d5e2DJ6R+JZxbPEvTcPnWal3TWM=
+gitlab.ftsview.com/fotoable-go/gutil v0.0.0-20220829020439-da060c1a1d01 h1:d/dd8OTPOoXRoDJwSETFTD2m7UJDzI+Nu3W+RePjvzg=
+gitlab.ftsview.com/fotoable-go/gutil v0.0.0-20220829020439-da060c1a1d01/go.mod h1:H2sGQZep0a4G8fm7d5e2DJ6R+JZxbPEvTcPnWal3TWM=
 go.uber.org/atomic v1.7.0 h1:ADUqmZGgLDDfbSL9ZmPxKTybcoEYHgpYfELNoN+7hsw=
 go.uber.org/atomic v1.7.0/go.mod h1:fEN4uk6kAWBTFdckzkM89CLk9XfWZrxpCo0nPH17wJc=
 go.uber.org/goleak v1.1.11-0.20210813005559-691160354723 h1:sHOAIxRGBp443oHZIPB+HsUGaksVCXVQENPxwTfQdH4=
