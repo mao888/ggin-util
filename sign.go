@@ -145,7 +145,7 @@ func SignToB() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userID := c.Request.Header.Get(HeaderUserID)
 		userName := c.Request.Header.Get(HeaderUserName)
-		if userID == "" {
+		if userID == EmptyString {
 			c.Header(HeaderError, "userID is nil")
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
@@ -160,4 +160,22 @@ func SignToB() gin.HandlerFunc {
 		ctx = context.WithValue(ctx, gutil.HeaderUserName, userName)
 		c.Request = c.Request.WithContext(ctx)
 	}
+}
+
+//GetUserID 获取用户信息
+func GetUserID(ctx context.Context) string {
+	userID, ok := ctx.Value(gutil.HeaderUserID).(string)
+	if ok {
+		return userID
+	}
+	return EmptyString
+}
+
+//GetUserName 获取用户名称
+func GetUserName(ctx context.Context) string {
+	userName, ok := ctx.Value(gutil.HeaderUserName).(string)
+	if ok {
+		return userName
+	}
+	return EmptyString
 }
