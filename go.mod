@@ -7,5 +7,5 @@ require (
 	github.com/gin-gonic/gin v1.7.7
 	gitlab.ftsview.com/fotoable-go/glog v1.0.6
 	gitlab.ftsview.com/fotoable-go/gsecret v0.0.0-20220516022338-fd033917649e
-	gitlab.ftsview.com/fotoable-go/gutil v0.0.0-20220829020439-da060c1a1d01
+	gitlab.ftsview.com/fotoable-go/gutil v0.0.0-20220831091543-3635798350af
 )

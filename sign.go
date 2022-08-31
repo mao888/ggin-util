@@ -141,11 +141,12 @@ func GetAESKey(ctx context.Context) string {
 }
 
 //SignToB 验证ToB服务的签名及生成追踪ID和设置请求头信息
-func SignToB() gin.HandlerFunc {
+func SignToB(whiteList ...string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userID := c.Request.Header.Get(HeaderUserID)
 		userName := c.Request.Header.Get(HeaderUserName)
-		if userID == EmptyString {
+
+		if !gutil.IsExactExist(whiteList, c.Request.URL.Path) && userID == EmptyString {
 			c.Header(HeaderError, "userID is nil")
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
