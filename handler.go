@@ -46,7 +46,7 @@ type HeaderToC struct {
 type HeaderToB struct {
 	UserID   int    `header:"X-USER-ID"`
 	UserName string `header:"X-USER-Name"`
-	Token    string `header:"Authorization"`
+	//Token    string `header:"Authorization"`
 }
 
 func (h *BaseHandler) Bind(c *gin.Context, vo interface{}, bindHeader bool) bool {
