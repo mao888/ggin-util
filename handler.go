@@ -2,6 +2,8 @@ package gginutil
 
 import (
 	"net/http"
+	"reflect"
+	"strings"
 
 	"gitlab.ftsview.com/fotoable-go/glog"
 
@@ -9,8 +11,10 @@ import (
 )
 
 const (
-	HeaderError = "Fotoable-Error"
-	EmptyString = ""
+	HeaderError    = "Fotoable-Error"
+	EmptyString    = ""
+	querySeparator = "?"
+	uriSeparator   = ":"
 )
 
 type BaseHandler struct {
@@ -50,24 +54,45 @@ type HeaderToB struct {
 }
 
 func (h *BaseHandler) Bind(c *gin.Context, vo interface{}, bindHeader bool) bool {
+	//绑定头
 	if bindHeader {
 		if err := c.ShouldBindHeader(vo); err != nil {
 			glog.Errorf(c.Request.Context(), "bind header error: %s", err.Error())
-			c.Status(http.StatusBadRequest)
-			c.Header(HeaderError, err.Error())
+			h.BadRequest(c, err.Error())
 			return false
 		}
 	}
+	//判断是否绑定URL
+	if len(c.Params) > 0 {
+		if err := c.ShouldBindUri(vo); err != nil {
+			h.BadRequest(c, err.Error())
+			return false
+		}
+	}
+	//绑定Query参数
+	query := c.Request.URL.RequestURI()
+	if query != EmptyString && strings.Contains(query, querySeparator) {
+		if err := c.ShouldBindQuery(vo); err != nil {
+			h.BadRequest(c, err.Error())
+			return false
+		}
+	}
+
+	//绑定请求体
 	if c.Request.ContentLength == 0 {
 		return true
 	}
 	if err := c.ShouldBind(vo); err != nil {
 		glog.Errorf(c.Request.Context(), "bind body error: %s", err.Error())
-		c.Status(http.StatusBadRequest)
-		c.Header(HeaderError, err.Error())
+		h.BadRequest(c, err.Error())
 		return false
 	}
 	return true
+}
+
+func (h *BaseHandler) BadRequest(c *gin.Context, msg string) {
+	c.Status(http.StatusBadRequest)
+	c.Header(HeaderError, msg)
 }
 
 func (h *BaseHandler) Success(c *gin.Context, data interface{}) {
@@ -98,4 +123,8 @@ func (h *BaseHandler) FailWithData(c *gin.Context, code int, msg string, data in
 
 func (h *BaseHandler) SuccessEncryption(c *gin.Context, data interface{}, encryption bool) {
 	c.JSON(http.StatusOK, EncryptionResponse{Data: data, Encryption: encryption})
+}
+
+func (h *BaseHandler) Validator(vo interface{}) []string {
+	return doValidator(reflect.ValueOf(vo))
 }
